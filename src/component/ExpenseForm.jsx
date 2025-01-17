@@ -13,7 +13,6 @@ const ExpenseForm = () => {
     e.preventDefault();
     dispatch(addExpense({ id: Date.now(), amount: Number(amount), date }));
     // dispatch(addExpense({ id: Date.now(), amount, date }));
-
     setName();
     setAmount();
     setDate();
@@ -44,7 +43,7 @@ const ExpenseForm = () => {
           <Form.Label>Date</Form.Label>
           <Form.Control
             type="Date"
-            value={Da}
+            value={Date}
             placeholder="Enter Date"
             onChange={(e) => setDate(e.target.value)}
           />{" "}
