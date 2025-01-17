@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addExpense } from "../redux/expensesSlice";
 import { Button } from "bootstrap";
+import Form from "react-bootstrap/Form";
 
 const ExpenseForm = () => {
   const [name, setName] = useState("");
@@ -9,7 +10,10 @@ const ExpenseForm = () => {
   const [date, setDate] = useState("");
   const dispatch = useDispatch;
   const handleSubmit = (e) => {
+    e.preventDefault();
     dispatch(addExpense({ id: Date.now(), amount: Number(amount), date }));
+    // dispatch(addExpense({ id: Date.now(), amount, date }));
+
     setName();
     setAmount();
     setDate();
@@ -22,6 +26,7 @@ const ExpenseForm = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
+            value={name}
             placeholder="Enter Name"
             onChange={(e) => setName(e.target.value)}
           />{" "}
@@ -29,7 +34,8 @@ const ExpenseForm = () => {
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Amount</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
+            value={amount}
             placeholder="Enter Amount"
             onChange={(e) => setAmount(e.target.value)}
           />{" "}
@@ -38,6 +44,7 @@ const ExpenseForm = () => {
           <Form.Label>Date</Form.Label>
           <Form.Control
             type="Date"
+            value={Da}
             placeholder="Enter Date"
             onChange={(e) => setDate(e.target.value)}
           />{" "}
