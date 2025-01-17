@@ -3,15 +3,14 @@ import "./App.css";
 import ExpenseForm from "./component/ExpenseForm";
 import ExpenseList from "./component/ExpenseList";
 import FiltersList from "./component/FiltersList";
+import { Button } from "react-bootstrap";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <ExpenseForm />
-        <ExpenseList />
-        <FiltersList />
-      </header>
+      <ExpenseForm />
+      <ExpenseList />
+      <FiltersList />
     </div>
   );
 }

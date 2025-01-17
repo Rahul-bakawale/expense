@@ -4,7 +4,7 @@ const expensesSlice = createSlice({
   name: "expenses",
   initialState: {
     expenses: [],
-    filter: { name: "", amount: "", date: "" },
+    filters: { name: "", amount: "", date: "" },
   },
   reducers: {
     addExpense: (state, action) => {

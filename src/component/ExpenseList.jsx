@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "react-bootstrap/lib/InputGroup";
 import { useDispatch, useSelector } from "react-redux";
-import { dateExpense } from "../redux/expensesSlice";
-
+import { dateExpense } from "../redux/expensesSlice"; // Ensure the correct action name
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 const ExpenseList = () => {
   const { expenses, filters } = useSelector((state) => state.expenses);
   const dispatch = useDispatch();
+
   const filteredExpenses = expenses.filter((exp) => {
     return (
       (filters.name
@@ -15,28 +15,49 @@ const ExpenseList = () => {
       (filters.date ? exp.date === filters.date : true)
     );
   });
+
   const totalAmount = filteredExpenses.reduce(
-    (total, expenses) => total + expenses.amount,
+    (total, expense) => total + expense.amount,
     0
   );
+
   return (
     <React.Fragment>
-      <h2>Expense List</h2>
-      {filteredExpenses?.length > 0 ? (
-        filteredExpenses.map((expense) => {
+      <Container className="mt-4">
+        <h2 className="text-center mb-4">Expense List</h2>
+        {filteredExpenses.length > 0 ? (
           <>
-            <div key={expense.id}>
-              <p>{`${expense.name} - ${expense.amount}- ${expense.date}`}</p>
+            <Row>
+              {filteredExpenses.map((expense) => (
+                <Col md={6} lg={4} key={expense.id} className="mb-3">
+                  <Card className="shadow-sm">
+                    <Card.Body>
+                      <Card.Title>{expense.name}</Card.Title>
+                      <Card.Text>
+                        <strong>Amount:</strong> ${expense.amount}
+                        <br />
+                        <strong>Date:</strong> {expense.date}
+                      </Card.Text>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => dispatch(dateExpense(expense.id))}
+                      >
+                        Delete
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+            <div className="text-center mt-4">
+              <h3 className="text-primary">Total Amount: ${totalAmount}</h3>
             </div>
-            <Button onClick={() => dispatch(dateExpense.id)}> Delete</Button>
-          </>;
-          {
-            <h3> Total Amount: ${totalAmount}</h3>;
-          }
-        })
-      ) : (
-        <p>NO expenses found.</p>
-      )}
+          </>
+        ) : (
+          <p className="text-center text-muted">No expenses found.</p>
+        )}
+      </Container>
     </React.Fragment>
   );
 };
